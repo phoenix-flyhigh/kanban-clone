@@ -9,11 +9,11 @@ function App() {
   });
 
   return (
-    <main className="flex h-screen w-screen">
+    <main className="flex h-screen w-screen overflow-hidden">
       <div className="hidden md:flex">
         <MenuBar />
       </div>
-      <div className="w-full">
+      <div className="w-full flex flex-col">
         <NavBar />
         <TaskLayout />
       </div>

@@ -14,7 +14,7 @@ const MenuBar: React.FC<MenuBarProps> = ({ hideMenu }: MenuBarProps) => {
 
   return (
     <div
-      className={`flex flex-col min-w-[240px] max-w-[300px] dark:bg-dark-base bg-light-base border-r-2 border-zinc-600`}
+      className={`flex flex-col min-w-[240px] max-w-[300px] dark:bg-dark-base bg-light-base`}
     >
       <div className="flex gap-4 md:pl-8 pl-4 h-16 items-center">
         <button className="flex place-items-center" onClick={hideMenu}>
@@ -26,7 +26,7 @@ const MenuBar: React.FC<MenuBarProps> = ({ hideMenu }: MenuBarProps) => {
       </div>
       <div className="flex flex-col justify-between h-full pb-2">
         <div className="flex flex-col">
-          <p className="md:pl-8 pl-4 py-4 text-sm dark:text-slate-400 font-medium">
+          <p className="md:pl-8 pl-4 py-4 text-sm dark:text-dark-text-secondary font-medium">
             ALL BOARDS
           </p>
           <div className="dark:bg-dark-primary bg-light-primary text-dark-text-primary py-3 mr-8 md:pl-8 pl-4 rounded-r-full">

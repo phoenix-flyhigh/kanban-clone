@@ -13,7 +13,7 @@ const NavBar = () => {
       >
         <MenuBar hideMenu={toggleMenu} />
       </div>
-      <div className="dark:bg-dark-base bg-light-base h-16 flex justify-between items-center px-4 py-2 relative">
+      <div className="dark:bg-dark-base bg-light-base h-16 flex justify-between items-center px-4 py-2 relative border-l-[1px] border-zinc-600">
         <button
           className="md:hidden flex justify-center items-center"
           onClick={toggleMenu}
