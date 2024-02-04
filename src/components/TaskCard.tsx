@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Task, TaskStatus } from "../Interfaces";
+import { Task } from "../Interfaces";
 import ExpandedTask from "./ExpandedTask";
 
 interface TaskProps {
@@ -27,12 +27,7 @@ const TaskCard: React.FC<TaskProps> = ({ task }: TaskProps) => {
         className="absolute inset-0 rounded-2xl"
       >
         <ExpandedTask
-          task={{
-            title: "Build UI for search",
-            description: "",
-            status: TaskStatus.TODO,
-            subTasks: [{ title: "one", completed: true }],
-          }}
+          task={task}
           onClose={() => setShowModal(false)}
         />
       </dialog>
@@ -40,7 +35,7 @@ const TaskCard: React.FC<TaskProps> = ({ task }: TaskProps) => {
         className="flex flex-col dark:bg-dark-base bg-light-base rounded-lg w-full py-4 px-2"
         onClick={handleClick}
       >
-        <p className="dark:text-dark-text-primary text-light-text-primary font-semibold text-md">
+        <p className="dark:text-dark-text-primary text-light-text-primary font-semibold text-md text-left">
           {title}
         </p>
         <p className="dark:text-dark-text-secondary text-light-text-secondary text-sm">
