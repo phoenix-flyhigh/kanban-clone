@@ -1,7 +1,11 @@
 import { useState } from "react";
 import KanbanIcon from "./KanbanIcon";
 
-const MenuBar = () => {
+interface MenuBarProps {
+  hideMenu?: () => void;
+}
+
+const MenuBar: React.FC<MenuBarProps> = ({ hideMenu }: MenuBarProps) => {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const changeTheme = () => {
     document.body.classList.toggle("dark");
@@ -9,19 +13,23 @@ const MenuBar = () => {
   };
 
   return (
-    <div className="hidden md:flex flex-col h-full min-w-[240px] max-w-[300px] dark:bg-dark-base border-r-2 border-zinc-600">
-      <div className="flex gap-4 pl-8 h-16 items-center">
-        <KanbanIcon />
+    <div
+      className={`flex flex-col min-w-[240px] max-w-[300px] dark:bg-dark-base bg-light-base border-r-2 border-zinc-600`}
+    >
+      <div className="flex gap-4 md:pl-8 pl-4 h-16 items-center">
+        <button className="flex place-items-center" onClick={hideMenu}>
+          <KanbanIcon />
+        </button>
         <h1 className="text-xl dark:text-dark-text-primary font-bold ">
           kanban
         </h1>
       </div>
-      <section className="flex flex-col justify-between w-full h-full pb-2">
+      <div className="flex flex-col justify-between h-full pb-2">
         <div className="flex flex-col">
-          <p className="pl-8 py-4 text-sm dark:text-slate-400 font-medium">
+          <p className="md:pl-8 pl-4 py-4 text-sm dark:text-slate-400 font-medium">
             ALL BOARDS
           </p>
-          <div className="dark:bg-dark-primary bg-light-primary text-dark-text-primary py-3 mr-8 pl-8 rounded-r-full">
+          <div className="dark:bg-dark-primary bg-light-primary text-dark-text-primary py-3 mr-8 md:pl-8 pl-4 rounded-r-full">
             Platform Launch
           </div>
         </div>
@@ -37,7 +45,7 @@ const MenuBar = () => {
           </button>
           <span>Light</span>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
