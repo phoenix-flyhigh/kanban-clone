@@ -13,7 +13,7 @@ function App() {
       <div className="hidden md:flex">
         <MenuBar />
       </div>
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col overflow-scroll">
         <NavBar />
         <TaskLayout />
       </div>

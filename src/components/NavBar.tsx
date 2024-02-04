@@ -1,13 +1,23 @@
 import { useState } from "react";
 import KanbanIcon from "./KanbanIcon";
 import MenuBar from "./MenuBar";
+import AddTask from "./AddTask";
 
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
-
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const handleClick = () => {
+    setShowModal((prev) => !prev);
+  };
   const toggleMenu = () => setShowMenu((prev) => !prev);
+
   return (
     <>
+      {showModal && (
+        <dialog open={showModal} className="absolute inset-0 rounded-2xl">
+          <AddTask onClose={() => setShowModal(false)} />
+        </dialog>
+      )}
       <div
         className={`absolute inset-0 h-screen max-w-[240px] z-10 ${showMenu ? "flex" : "hidden"}`}
       >
@@ -24,7 +34,10 @@ const NavBar = () => {
           Platform Launch
         </p>
         <button className="rounded-2xl dark:bg-dark-primary bg-light-primary text-dark-text-primary text-md md:py-2 m-0 flex items-center justify-center gap-1 px-4">
-          +<span className="hidden md:inline">Add new task</span>
+          +
+          <span className="hidden md:inline" onClick={handleClick}>
+            Add new task
+          </span>
         </button>
       </div>
     </>
