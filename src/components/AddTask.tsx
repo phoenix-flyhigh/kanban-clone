@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { TaskStatus } from "../Interfaces";
+import { useDispatch } from "react-redux";
+import { addTask } from "../redux/TaskSlice";
 
 interface ExpandedTaskProps {
   onClose: () => void;
@@ -12,9 +14,23 @@ const AddTask: React.FC<ExpandedTaskProps> = ({
   const [description, setDescription] = useState<string>("");
   const [status, setStatus] = useState<TaskStatus>(TaskStatus.TODO);
   const [subTasks, setSubTasks] = useState<string[]>(["", ""]);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(
+      addTask({
+        title,
+        description,
+        status,
+        subTasks: subTasks
+          .filter((task) => task !== "")
+          .map((subtask) => ({
+            title: subtask,
+            completed: false,
+          })),
+      })
+    );
     onClose();
   };
 

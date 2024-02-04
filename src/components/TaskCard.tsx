@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Task } from "../Interfaces";
 import ExpandedTask from "./ExpandedTask";
+import { useDispatch } from "react-redux";
+import { editTask } from "../redux/TaskSlice";
 
 interface TaskProps {
   task: Task;
@@ -9,7 +11,7 @@ interface TaskProps {
 const TaskCard: React.FC<TaskProps> = ({ task }: TaskProps) => {
   const { title, subTasks } = task;
   const [showModal, setShowModal] = useState<boolean>(false);
-
+  const dispatch = useDispatch();
   const completedSubTasksCount = subTasks.filter(
     (task) => task.completed
   ).length;
@@ -19,6 +21,8 @@ const TaskCard: React.FC<TaskProps> = ({ task }: TaskProps) => {
     setShowModal((prev) => !prev);
   };
 
+  const updateTask = (task: Task) => dispatch(editTask(task));
+
   return (
     <>
       <dialog
@@ -27,8 +31,10 @@ const TaskCard: React.FC<TaskProps> = ({ task }: TaskProps) => {
         className="absolute inset-0 rounded-2xl"
       >
         <ExpandedTask
+          // key={task.title}
           task={task}
           onClose={() => setShowModal(false)}
+          updateTask={updateTask}
         />
       </dialog>
       <button

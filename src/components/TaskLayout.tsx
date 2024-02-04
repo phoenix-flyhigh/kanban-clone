@@ -24,13 +24,13 @@ const TaskLayout = () => {
   return (
     <div className="dark:bg-dark-secondary bg-light-secondary h-full flex gap-4 p-4 overflow-y-hidden overflow-x-scroll">
       {columns.map((column) => (
-        <Column title={column} titleColor={getRandomColor()}>
+        <Column title={column} titleColor={getRandomColor()} key={column}>
           {tasks
             .filter(
               (task) => task.status === (column as keyof typeof TaskStatus)
             )
             .map((task) => (
-              <TaskCard task={task} />
+              <TaskCard task={task} key={task.title} />
             ))}
         </Column>
       ))}

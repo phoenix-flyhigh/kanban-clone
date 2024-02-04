@@ -1,13 +1,15 @@
-import { Task } from "../Interfaces";
+import { Task, TaskStatus } from "../Interfaces";
 
 interface ExpandedTaskProps {
   task: Task;
   onClose: () => void;
+  updateTask: (task: Task) => void;
 }
 
 const ExpandedTask: React.FC<ExpandedTaskProps> = ({
   task,
   onClose,
+  updateTask,
 }: ExpandedTaskProps) => {
   const { title, description, subTasks, status } = task;
 
@@ -27,11 +29,24 @@ const ExpandedTask: React.FC<ExpandedTaskProps> = ({
           <div className="flex gap-4 w-full" key={title}>
             <input
               type="checkbox"
-              id="subTask"
-              name="subTask"
+              id={title}
+              name={title}
               checked={completed}
+              onChange={(e) => {
+                updateTask({
+                  ...task,
+                  subTasks: subTasks.map((subtask) =>
+                    subtask.title === title
+                      ? {
+                          ...subtask,
+                          completed: e.target.checked,
+                        }
+                      : subtask
+                  ),
+                });
+              }}
             />
-            <label htmlFor="subtask">{title}</label>
+            <label htmlFor={title} className="w-full">{title}</label>
           </div>
         ))}
       </div>
@@ -42,6 +57,12 @@ const ExpandedTask: React.FC<ExpandedTaskProps> = ({
           name="status"
           value={status}
           className="dark:bg-dark-base bg-light-base py-1 px-3 rounded-lg border-2 border-gray-400 hover:border-dark-primary"
+          onChange={(e) =>
+            updateTask({
+              ...task,
+              status: TaskStatus[e.target.value as keyof typeof TaskStatus],
+            })
+          }
         >
           <option>TODO</option>
           <option>DOING</option>
