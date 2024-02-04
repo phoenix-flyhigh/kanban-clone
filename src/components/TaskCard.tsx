@@ -31,7 +31,6 @@ const TaskCard: React.FC<TaskProps> = ({ task }: TaskProps) => {
         className="absolute inset-0 rounded-2xl"
       >
         <ExpandedTask
-          // key={task.title}
           task={task}
           onClose={() => setShowModal(false)}
           updateTask={updateTask}

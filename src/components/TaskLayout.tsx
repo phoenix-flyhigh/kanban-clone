@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { TaskStatus } from "../Interfaces";
 import Column from "./Column";
 import TaskCard from "./TaskCard";
 import { RootState } from "../redux/store";
@@ -26,9 +25,7 @@ const TaskLayout = () => {
       {columns.map((column) => (
         <Column title={column} titleColor={getRandomColor()} key={column}>
           {tasks
-            .filter(
-              (task) => task.status === (column as keyof typeof TaskStatus)
-            )
+            .filter((task) => task.status === column)
             .map((task) => (
               <TaskCard task={task} key={task.title} />
             ))}

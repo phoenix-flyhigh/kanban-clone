@@ -1,4 +1,6 @@
-import { Task, TaskStatus } from "../Interfaces";
+import { useSelector } from "react-redux";
+import { Task } from "../Interfaces";
+import { RootState } from "../redux/store";
 
 interface ExpandedTaskProps {
   task: Task;
@@ -12,6 +14,7 @@ const ExpandedTask: React.FC<ExpandedTaskProps> = ({
   updateTask,
 }: ExpandedTaskProps) => {
   const { title, description, subTasks, status } = task;
+  const columns = useSelector((state: RootState) => state.columns);
 
   return (
     <div className="dark:text-dark-text-primary p-6 flex flex-col gap-4 dark:bg-dark-base bg-light-base w-96 rounded-2xl">
@@ -46,7 +49,9 @@ const ExpandedTask: React.FC<ExpandedTaskProps> = ({
                 });
               }}
             />
-            <label htmlFor={title} className="w-full">{title}</label>
+            <label htmlFor={title} className="w-full">
+              {title}
+            </label>
           </div>
         ))}
       </div>
@@ -60,13 +65,13 @@ const ExpandedTask: React.FC<ExpandedTaskProps> = ({
           onChange={(e) =>
             updateTask({
               ...task,
-              status: TaskStatus[e.target.value as keyof typeof TaskStatus],
+              status: e.target.value,
             })
           }
         >
-          <option>TODO</option>
-          <option>DOING</option>
-          <option>DONE</option>
+          {columns.map((column) => (
+            <option>{column.toUpperCase()}</option>
+          ))}
         </select>
       </div>
     </div>

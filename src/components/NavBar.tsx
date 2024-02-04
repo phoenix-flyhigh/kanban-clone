@@ -14,7 +14,7 @@ const NavBar = () => {
   return (
     <>
       {showModal && (
-        <dialog open={showModal} className="absolute inset-0 rounded-2xl">
+        <dialog open className="absolute inset-0 rounded-2xl">
           <AddTask onClose={() => setShowModal(false)} />
         </dialog>
       )}

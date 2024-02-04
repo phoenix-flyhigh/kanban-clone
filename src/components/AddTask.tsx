@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { TaskStatus } from "../Interfaces";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../redux/TaskSlice";
+import { RootState } from "../redux/store";
 
 interface ExpandedTaskProps {
   onClose: () => void;
@@ -12,9 +13,10 @@ const AddTask: React.FC<ExpandedTaskProps> = ({
 }: ExpandedTaskProps) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [status, setStatus] = useState<TaskStatus>(TaskStatus.TODO);
+  const [status, setStatus] = useState<string>(TaskStatus.TODO);
   const [subTasks, setSubTasks] = useState<string[]>(["", ""]);
   const dispatch = useDispatch();
+  const columns = useSelector((state: RootState) => state.columns);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -122,14 +124,12 @@ const AddTask: React.FC<ExpandedTaskProps> = ({
           id="status"
           name="status"
           value={status}
-          onChange={(e) =>
-            setStatus(TaskStatus[e.target.value as keyof typeof TaskStatus])
-          }
+          onChange={(e) => setStatus(e.target.value)}
           className="dark:bg-dark-base bg-light-base py-1 px-3 rounded-lg border-2 border-gray-400 hover:border-dark-primary"
         >
-          <option>TODO</option>
-          <option>DOING</option>
-          <option>DONE</option>
+          {columns.map((column) => (
+            <option>{column.toUpperCase()}</option>
+          ))}
         </select>
       </div>
       <button

@@ -2,7 +2,7 @@ export interface Task {
   title: string;
   description: string;
   subTasks: SubTask[];
-  status: TaskStatus;
+  status: string;
 }
 
 export interface SubTask {
