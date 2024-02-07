@@ -21,7 +21,7 @@ const MenuBar: React.FC<MenuBarProps> = ({ hideMenu }: MenuBarProps) => {
           <KanbanIcon />
         </button>
         <h1 className="text-xl dark:text-dark-text-primary font-bold ">
-          kanban
+          kanban Clone
         </h1>
       </div>
       <div className="flex flex-col justify-between h-full pb-2">

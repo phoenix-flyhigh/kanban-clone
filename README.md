@@ -3,7 +3,7 @@
 This a kanban task management clone built using the Vite + React + Typescript starter in reference to the following Frontend Mentor challenge https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB
 
 ## Solution
-- Live link -  
+- Live link -  https://kanban-clone-brown.vercel.app/
 
 ## Setup repo in the local
 
