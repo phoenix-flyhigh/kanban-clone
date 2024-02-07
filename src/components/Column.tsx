@@ -1,5 +1,8 @@
 import React, { ReactNode, useState } from "react";
 import AddColumn from "./AddColumn";
+import { useDispatch } from "react-redux";
+import { editTask } from "../redux/TaskSlice";
+import { Task } from "../Interfaces";
 
 interface ColumnProps {
   title?: string;
@@ -9,6 +12,8 @@ interface ColumnProps {
   children?: ReactNode;
 }
 
+type dragDataTransfer = { draggedTask: Task };
+
 const Column: React.FC<ColumnProps> = ({
   title,
   titleColor,
@@ -17,7 +22,7 @@ const Column: React.FC<ColumnProps> = ({
   children,
 }: ColumnProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-
+  const dispatch = useDispatch();
   const handleClick = () => {
     setShowModal((prev) => !prev);
   };
@@ -28,7 +33,23 @@ const Column: React.FC<ColumnProps> = ({
           <AddColumn onClose={() => setShowModal(false)} />
         </dialog>
       )}
-      <div className="flex flex-col justify-start min-w-72 max-w-80 h-full">
+      <div
+        className="flex flex-col justify-start min-w-72 max-w-80 h-full"
+        onDrop={(e) => {
+          const { draggedTask }: dragDataTransfer = JSON.parse(
+            e.dataTransfer.getData("text")
+          ) as dragDataTransfer;
+          !newColumn &&
+            title &&
+            dispatch(
+              editTask({
+                ...draggedTask,
+                status: title,
+              })
+            );
+        }}
+        onDragOver={(e) => e.preventDefault()}
+      >
         <div className="flex items-center justify-start gap-3 p-4">
           <div className={` w-3 h-3 ${titleColor} rounded-full`} />
           <p className="dark:text-dark-text-secondary text-light-text-primary text-sm font-bold tracking-widest">

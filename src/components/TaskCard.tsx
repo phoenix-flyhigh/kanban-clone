@@ -11,6 +11,7 @@ interface TaskProps {
 const TaskCard: React.FC<TaskProps> = ({ task }: TaskProps) => {
   const { title, subTasks } = task;
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
   const dispatch = useDispatch();
   const completedSubTasksCount = subTasks.filter(
     (task) => task.completed
@@ -37,8 +38,16 @@ const TaskCard: React.FC<TaskProps> = ({ task }: TaskProps) => {
         />
       </dialog>
       <button
-        className="flex flex-col dark:bg-dark-base bg-light-base rounded-lg w-full py-4 px-2"
+        className={`flex flex-col dark:bg-dark-base bg-light-base rounded-lg w-full py-4 px-2 ${isDragging ? "shadow-2xl scale-110" : ""}`}
         onClick={handleClick}
+        onDragStart={(e) => {
+          setIsDragging(true);
+          e.dataTransfer.setData("text", JSON.stringify({ draggedTask: task }));
+        }}
+        onDragEnd={() => {
+          setIsDragging(false);
+        }}
+        draggable
       >
         <p className="dark:text-dark-text-primary text-light-text-primary font-semibold text-md text-left">
           {title}
