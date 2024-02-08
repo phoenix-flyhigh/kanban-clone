@@ -17,6 +17,7 @@ function App() {
 
   const handleAddBoard = (boardTitle: string) => {
     dispatch(addBoard(boardTitle));
+    setCurrentBoard(boardTitle);
   };
 
   return (

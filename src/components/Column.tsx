@@ -61,8 +61,11 @@ const Column: React.FC<ColumnProps> = ({
         }}
         onDragOver={(e) => e.preventDefault()}
       >
-        <div className="flex items-center justify-start gap-3 p-4">
-          <div className={` w-3 h-3 ${titleColor} rounded-full`} />
+        <div
+          className="flex items-center justify-start gap-3 p-4"
+          style={{ overflowWrap: "break-word" }}
+        >
+          <div className={`w-3 h-3 ${titleColor} rounded-full`} />
           <p className="dark:text-dark-text-secondary text-light-text-primary text-sm font-bold tracking-widest">
             {columnTitle}
           </p>

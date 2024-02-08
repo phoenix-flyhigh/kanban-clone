@@ -52,9 +52,11 @@ const TaskCard: React.FC<TaskProps> = ({ task }: TaskProps) => {
         <p className="dark:text-dark-text-primary text-light-text-primary font-semibold text-md text-left">
           {title}
         </p>
-        <p className="dark:text-dark-text-secondary text-light-text-secondary text-sm">
-          {completedSubTasksCount} of {totalSubTasksCount} subtasks
-        </p>
+        {totalSubTasksCount > 0 && (
+          <p className="dark:text-dark-text-secondary text-light-text-secondary text-sm">
+            {completedSubTasksCount} of {totalSubTasksCount} subtasks
+          </p>
+        )}
       </button>
     </>
   );
