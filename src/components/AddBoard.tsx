@@ -1,41 +1,25 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addColumn } from "../redux/ColumnSlice";
+import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
-interface AddColumnProps {
-  boardTitle: string;
+interface AddBoardProps {
+  onSubmit: (boardTitle: string) => void;
   onClose: () => void;
 }
 
-const AddColumn: React.FC<AddColumnProps> = ({
-  boardTitle,
+const AddBoard: React.FC<AddBoardProps> = ({
+  onSubmit,
   onClose,
-}: AddColumnProps) => {
+}: AddBoardProps) => {
   const [title, setTitle] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
-
-  const dispatch = useDispatch();
-  const columns = useSelector((state: RootState) =>
-    state.columns.filter((column) => column.boardTitle === boardTitle)
-  );
+  const boards = useSelector((state: RootState) => state.boards);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      columns.find(
-        (column) =>
-          column.title === title.trim().toUpperCase() &&
-          column.boardTitle === boardTitle
-      )
-    ) {
+    if (boards.includes(title.trim())) {
       setError(true);
     } else {
-      dispatch(
-        addColumn({
-          title: title.toUpperCase(),
-          boardTitle: boardTitle,
-        })
-      );
+      onSubmit(title);
       onClose();
     }
   };
@@ -46,7 +30,7 @@ const AddColumn: React.FC<AddColumnProps> = ({
       className="dark:text-dark-text-primary p-6 flex flex-col gap-4 dark:bg-dark-base bg-light-base w-96 rounded-2xl"
     >
       <div className="flex justify-between items-center">
-        <h1 className="text-lg font-semibold">Add New Column</h1>
+        <h1 className="text-lg font-semibold">Add New Board</h1>
         <button type="button" onClick={onClose}>
           X
         </button>
@@ -67,17 +51,17 @@ const AddColumn: React.FC<AddColumnProps> = ({
           placeholder="e.g Take coffee break"
           className="dark:bg-dark-base py-1 px-4 rounded-lg border-2 border-gray-400 hover:border-dark-primary"
         />
-        {error && <p className="text-sm text-red-500">Column already exists</p>}
+        {error && <p className="text-sm text-red-500">Board already exists</p>}
       </div>
       <button
         type="submit"
         disabled={title === ""}
         className={`dark:bg-dark-primary bg-light-primary dark:text-dark-text-primary text-light-secondary text-md font-semibold w-full rounded-full p-3 disabled:opacity-30`}
       >
-        Create Column
+        Create board
       </button>
     </form>
   );
 };
 
-export default AddColumn;
+export default AddBoard;

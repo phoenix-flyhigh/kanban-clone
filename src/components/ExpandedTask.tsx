@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Task } from "../Interfaces";
+import { BoardColumn, Task } from "../Interfaces";
 import { RootState } from "../redux/store";
 
 interface ExpandedTaskProps {
@@ -14,7 +14,11 @@ const ExpandedTask: React.FC<ExpandedTaskProps> = ({
   updateTask,
 }: ExpandedTaskProps) => {
   const { title, description, subTasks, status } = task;
-  const columns = useSelector((state: RootState) => state.columns);
+  const columns: BoardColumn[] = useSelector((state: RootState) =>
+    state.columns.filter(
+      (column) => column.boardTitle === task.status.boardTitle
+    )
+  );
 
   return (
     <div className="dark:text-dark-text-primary p-6 flex flex-col gap-4 dark:bg-dark-base bg-light-base w-96 rounded-2xl">
