@@ -14,8 +14,8 @@ function App() {
         <MenuBar />
       </div>
       <div className="w-full flex flex-col overflow-scroll">
-        <NavBar />
-        <TaskLayout />
+        <NavBar board="Platform Launch"/>
+        <TaskLayout board="Platform Launch" />
       </div>
     </main>
   );

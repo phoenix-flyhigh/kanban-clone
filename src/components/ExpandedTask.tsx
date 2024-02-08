@@ -60,17 +60,20 @@ const ExpandedTask: React.FC<ExpandedTaskProps> = ({
         <select
           id="status"
           name="status"
-          value={status}
+          value={status.title}
           className="dark:bg-dark-base bg-light-base py-1 px-3 rounded-lg border-2 border-gray-400 hover:border-dark-primary"
           onChange={(e) =>
             updateTask({
               ...task,
-              status: e.target.value,
+              status: {
+                ...task.status,
+                title: e.target.value,
+              },
             })
           }
         >
           {columns.map((column) => (
-            <option>{column.toUpperCase()}</option>
+            <option>{column.title.toUpperCase()}</option>
           ))}
         </select>
       </div>

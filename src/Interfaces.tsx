@@ -2,7 +2,12 @@ export interface Task {
   title: string;
   description: string;
   subTasks: SubTask[];
-  status: string;
+  status: BoardColumn;
+}
+
+export interface BoardColumn {
+  title: string;
+  boardTitle: string;
 }
 
 export interface SubTask {

@@ -1,22 +1,26 @@
 import { useState } from "react";
-import { TaskStatus } from "../Interfaces";
+import { BoardColumn } from "../Interfaces";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../redux/TaskSlice";
 import { RootState } from "../redux/store";
 
 interface ExpandedTaskProps {
+  board: string;
   onClose: () => void;
 }
 
 const AddTask: React.FC<ExpandedTaskProps> = ({
+  board,
   onClose,
 }: ExpandedTaskProps) => {
+  const columns: BoardColumn[] = useSelector((state: RootState) =>
+    state.columns.filter((column) => column.boardTitle === board)
+  );
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [status, setStatus] = useState<string>(TaskStatus.TODO);
+  const [status, setStatus] = useState<BoardColumn>(columns[0]);
   const [subTasks, setSubTasks] = useState<string[]>(["", ""]);
   const dispatch = useDispatch();
-  const columns = useSelector((state: RootState) => state.columns);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -123,12 +127,14 @@ const AddTask: React.FC<ExpandedTaskProps> = ({
         <select
           id="status"
           name="status"
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          value={status.title}
+          onChange={(e) =>
+            setStatus((prev) => ({ ...prev, title: e.target.value }))
+          }
           className="dark:bg-dark-base bg-light-base py-1 px-3 rounded-lg border-2 border-gray-400 hover:border-dark-primary"
         >
           {columns.map((column) => (
-            <option>{column.toUpperCase()}</option>
+            <option>{column.title.toUpperCase()}</option>
           ))}
         </select>
       </div>

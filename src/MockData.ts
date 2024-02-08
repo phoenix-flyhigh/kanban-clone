@@ -11,7 +11,10 @@ export const MockTaskList: Task[] = [
         completed: false,
       },
     ],
-    status: TaskStatus.TODO,
+    status: {
+      title: TaskStatus.TODO,
+      boardTitle: "Platform Launch",
+    },
   },
   {
     title: "Build UI for search",
@@ -27,7 +30,10 @@ export const MockTaskList: Task[] = [
         completed: false,
       },
     ],
-    status: TaskStatus.TODO,
+    status: {
+      title: TaskStatus.TODO,
+      boardTitle: "Platform Launch",
+    },
   },
   {
     title: "Add search endpoints",
@@ -39,7 +45,10 @@ export const MockTaskList: Task[] = [
         completed: false,
       },
     ],
-    status: TaskStatus.TODO,
+    status: {
+      title: TaskStatus.TODO,
+      boardTitle: "Platform Launch",
+    },
   },
   {
     title: "Add account management endpoints",
@@ -55,7 +64,10 @@ export const MockTaskList: Task[] = [
         completed: false,
       },
     ],
-    status: TaskStatus.TODO,
+    status: {
+      title: TaskStatus.TODO,
+      boardTitle: "Platform Launch",
+    },
   },
   {
     title: "Performance testing",
@@ -67,7 +79,10 @@ export const MockTaskList: Task[] = [
         completed: false,
       },
     ],
-    status: TaskStatus.TODO,
+    status: {
+      title: TaskStatus.TODO,
+      boardTitle: "Platform Launch",
+    },
   },
   {
     title: "Research market",
@@ -79,7 +94,10 @@ export const MockTaskList: Task[] = [
         completed: true,
       },
     ],
-    status: TaskStatus.TODO,
+    status: {
+      title: TaskStatus.TODO,
+      boardTitle: "Platform Launch",
+    },
   },
   {
     title: "Market analysis",
@@ -91,6 +109,9 @@ export const MockTaskList: Task[] = [
         completed: true,
       },
     ],
-    status: TaskStatus.TODO,
+    status: {
+      title: TaskStatus.TODO,
+      boardTitle: "Platform Launch",
+    },
   },
 ];

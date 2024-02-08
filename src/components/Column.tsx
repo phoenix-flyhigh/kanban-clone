@@ -1,11 +1,12 @@
 import React, { ReactNode, useState } from "react";
 import AddColumn from "./AddColumn";
 import { useDispatch } from "react-redux";
-import { editTask } from "../redux/TaskSlice";
+import { editTaskStatus } from "../redux/TaskSlice";
 import { Task } from "../Interfaces";
 
 interface ColumnProps {
-  title?: string;
+  boardTitle: string;
+  columnTitle?: string;
   titleColor?: string;
   taskCount?: number;
   newColumn?: boolean;
@@ -15,7 +16,8 @@ interface ColumnProps {
 type dragDataTransfer = { draggedTask: Task };
 
 const Column: React.FC<ColumnProps> = ({
-  title,
+  boardTitle,
+  columnTitle,
   titleColor,
   taskCount,
   newColumn,
@@ -30,7 +32,10 @@ const Column: React.FC<ColumnProps> = ({
     <>
       {showModal && (
         <dialog open={showModal} className="absolute inset-0 rounded-2xl">
-          <AddColumn onClose={() => setShowModal(false)} />
+          <AddColumn
+            onClose={() => setShowModal(false)}
+            boardTitle={boardTitle}
+          />
         </dialog>
       )}
       <div
@@ -40,11 +45,17 @@ const Column: React.FC<ColumnProps> = ({
             e.dataTransfer.getData("text")
           ) as dragDataTransfer;
           !newColumn &&
-            title &&
+            columnTitle &&
             dispatch(
-              editTask({
-                ...draggedTask,
-                status: title,
+              editTaskStatus({
+                task: {
+                  ...draggedTask,
+                  status: {
+                    title: columnTitle,
+                    boardTitle: boardTitle,
+                  },
+                },
+                previousStatus: draggedTask.status,
               })
             );
         }}
@@ -53,7 +64,7 @@ const Column: React.FC<ColumnProps> = ({
         <div className="flex items-center justify-start gap-3 p-4">
           <div className={` w-3 h-3 ${titleColor} rounded-full`} />
           <p className="dark:text-dark-text-secondary text-light-text-primary text-sm font-bold tracking-widest">
-            {title}
+            {columnTitle}
           </p>
           {taskCount && (
             <p className="dark:text-dark-text-secondary text-sm">

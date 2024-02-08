@@ -3,7 +3,11 @@ import KanbanIcon from "./KanbanIcon";
 import MenuBar from "./MenuBar";
 import AddTask from "./AddTask";
 
-const NavBar = () => {
+interface NavBarProps {
+  board: string;
+}
+
+const NavBar: React.FC<NavBarProps> = ({board}: NavBarProps) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const handleClick = () => {
@@ -15,7 +19,7 @@ const NavBar = () => {
     <>
       {showModal && (
         <dialog open className="absolute inset-0 rounded-2xl">
-          <AddTask onClose={() => setShowModal(false)} />
+          <AddTask onClose={() => setShowModal(false)} board={board}/>
         </dialog>
       )}
       <div

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Task } from "../Interfaces";
+import { BoardColumn, Task } from "../Interfaces";
 import { MockTaskList } from "../MockData";
 
 const initialState = MockTaskList;
@@ -17,12 +17,28 @@ const TaskSlice = createSlice({
     editTask(state, action: { payload: Task }) {
       const updatedTask = action.payload;
       return state.map((task) =>
-        task.title === updatedTask.title ? updatedTask : task
+        task.title === updatedTask.title && task.status.boardTitle === updatedTask.status.boardTitle
+          ? updatedTask
+          : task
+      );
+    },
+    editTaskStatus(
+      state,
+      action: { payload: { task: Task; previousStatus: BoardColumn } }
+    ) {
+      const { task: updatedTask, previousStatus } = action.payload;
+
+      return state.map((task) =>
+        task.title === updatedTask.title &&
+        task.status.boardTitle === previousStatus.boardTitle
+          ? updatedTask
+          : task
       );
     },
   },
 });
 
-export const { fetchTasks, addTask, editTask } = TaskSlice.actions;
+export const { fetchTasks, addTask, editTask, editTaskStatus } =
+  TaskSlice.actions;
 const TaskReducer = TaskSlice.reducer;
 export default TaskReducer;

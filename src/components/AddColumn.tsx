@@ -2,19 +2,26 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addColumn } from "../redux/ColumnSlice";
 
-interface ExpandedTaskProps {
+interface AddColumnProps {
+  boardTitle: string;
   onClose: () => void;
 }
 
-const AddColumn: React.FC<ExpandedTaskProps> = ({
+const AddColumn: React.FC<AddColumnProps> = ({
+  boardTitle,
   onClose,
-}: ExpandedTaskProps) => {
+}: AddColumnProps) => {
   const [title, setTitle] = useState<string>("");
   const dispatch = useDispatch();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(addColumn(title.toUpperCase()));
+    dispatch(
+      addColumn({
+        title: title.toUpperCase(),
+        boardTitle: boardTitle,
+      })
+    );
     onClose();
   };
 
