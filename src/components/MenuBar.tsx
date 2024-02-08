@@ -17,7 +17,7 @@ const MenuBar: React.FC<MenuBarProps> = ({
   changeBoard,
   addBoard,
 }: MenuBarProps) => {
-  const boards: string[] = useSelector((state: RootState) => state.boards);
+  const boards: string[] = useSelector((state: RootState) => state.boards.all);
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const [showModal, setShowModal] = useState<boolean>(false);
   useEffect(() => {
@@ -31,7 +31,7 @@ const MenuBar: React.FC<MenuBarProps> = ({
   return (
     <>
       {showModal && (
-        <dialog open className="absolute inset-0 rounded-2xl">
+        <dialog open className="absolute inset-0 rounded-2xl z-10">
           <AddBoard onClose={() => setShowModal(false)} onSubmit={addBoard} />
         </dialog>
       )}
@@ -53,6 +53,7 @@ const MenuBar: React.FC<MenuBarProps> = ({
             </p>
             {boards.map((board) => (
               <button
+                key={board}
                 onClick={() => changeBoard(board)}
                 className={`${currentBoard === board ? "dark:bg-dark-primary bg-light-primary text-dark-text-primary" : "text-light-text-primary"} dark:text-dark-text-primary py-3 mr-8 md:pl-8 pl-4 rounded-r-full`}
               >

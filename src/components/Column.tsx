@@ -31,7 +31,7 @@ const Column: React.FC<ColumnProps> = ({
   return (
     <>
       {showModal && (
-        <dialog open={showModal} className="absolute inset-0 rounded-2xl">
+        <dialog open={showModal} className="absolute inset-0 rounded-2xl z-10">
           <AddColumn
             onClose={() => setShowModal(false)}
             boardTitle={boardTitle}

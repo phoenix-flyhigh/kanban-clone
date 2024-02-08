@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { BoardColumn, Task } from "../Interfaces";
 import { RootState } from "../redux/store";
 import { useState } from "react";
+import { createSelector } from "@reduxjs/toolkit";
 
 interface ExpandedTaskProps {
   task: Task;
@@ -15,12 +16,13 @@ const ExpandedTask: React.FC<ExpandedTaskProps> = ({
   updateTask,
 }: ExpandedTaskProps) => {
   const { title, description, subTasks, status } = task;
-  const columns: BoardColumn[] = useSelector((state: RootState) =>
-    state.columns.filter(
-      (column) => column.boardTitle === task.status.boardTitle
-    )
-  );
   const [newSubTask, setNewSubTask] = useState<string>("");
+
+  const columns: BoardColumn[] = createSelector(
+    (state: BoardColumn[]) => state,
+    (columns) =>
+      columns.filter((column) => column.boardTitle === task.status.boardTitle)
+  )(useSelector((state: RootState) => state.columns));
 
   return (
     <div className="dark:text-dark-text-primary p-6 flex flex-col gap-4 dark:bg-dark-base bg-light-base w-96 rounded-2xl">
@@ -127,7 +129,7 @@ const ExpandedTask: React.FC<ExpandedTaskProps> = ({
           }
         >
           {columns.map((column) => (
-            <option>{column.title.toUpperCase()}</option>
+            <option key={column.title}>{column.title.toUpperCase()}</option>
           ))}
         </select>
       </div>

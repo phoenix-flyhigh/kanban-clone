@@ -29,7 +29,7 @@ const TaskCard: React.FC<TaskProps> = ({ task }: TaskProps) => {
       <dialog
         id="task-modal"
         open={showModal}
-        className="absolute inset-0 rounded-2xl"
+        className="absolute inset-0 rounded-2xl z-10"
       >
         <ExpandedTask
           task={task}

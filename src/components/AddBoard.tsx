@@ -13,7 +13,7 @@ const AddBoard: React.FC<AddBoardProps> = ({
 }: AddBoardProps) => {
   const [title, setTitle] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
-  const boards = useSelector((state: RootState) => state.boards);
+  const boards = useSelector((state: RootState) => state.boards.all);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (boards.includes(title.trim())) {

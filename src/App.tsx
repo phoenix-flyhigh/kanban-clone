@@ -1,23 +1,26 @@
-import { useState } from "react";
 import MenuBar from "./components/MenuBar";
 import NavBar from "./components/NavBar";
 import TaskLayout from "./components/TaskLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import { addBoard } from "./redux/BoardSlice";
+import { addBoard, deleteBoard, updateCurrentBoard } from "./redux/BoardSlice";
 
 function App() {
-  const boards: string[] = useSelector((state: RootState) => state.boards);
+  const currentBoard: string = useSelector(
+    (state: RootState) => state.boards.current
+  );
   const dispatch = useDispatch();
-  const [currentBoard, setCurrentBoard] = useState<string>(boards[0]);
 
   const handleBoardChange = (boardTitle: string) => {
-    setCurrentBoard(boardTitle);
+    dispatch(updateCurrentBoard(boardTitle));
   };
 
   const handleAddBoard = (boardTitle: string) => {
     dispatch(addBoard(boardTitle));
-    setCurrentBoard(boardTitle);
+  };
+
+  const handleDeleteBoard = (boardTitle: string) => {
+    dispatch(deleteBoard(boardTitle));
   };
 
   return (
@@ -34,6 +37,7 @@ function App() {
           currentBoard={currentBoard}
           changeBoard={handleBoardChange}
           addBoard={handleAddBoard}
+          deleteBoard={handleDeleteBoard}
         />
         <TaskLayout board={currentBoard} />
       </div>

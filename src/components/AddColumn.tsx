@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addColumn } from "../redux/ColumnSlice";
 import { RootState } from "../redux/store";
+import { BoardColumn } from "../Interfaces";
+import { createSelector } from "reselect";
 
 interface AddColumnProps {
   boardTitle: string;
@@ -16,9 +18,11 @@ const AddColumn: React.FC<AddColumnProps> = ({
   const [error, setError] = useState<boolean>(false);
 
   const dispatch = useDispatch();
-  const columns = useSelector((state: RootState) =>
-    state.columns.filter((column) => column.boardTitle === boardTitle)
-  );
+  const columns: BoardColumn[] = createSelector(
+    (state: BoardColumn[]) => state,
+    (columns) => columns.filter((column) => column.boardTitle === boardTitle)
+  )(useSelector((state: RootState) => state.columns));
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (

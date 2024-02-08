@@ -3,18 +3,22 @@ import Column from "./Column";
 import TaskCard from "./TaskCard";
 import { RootState } from "../redux/store";
 import { BoardColumn, Task } from "../Interfaces";
+import { createSelector } from "@reduxjs/toolkit";
 
 interface TaskLayoutProps {
   board: string;
 }
 
 const TaskLayout: React.FC<TaskLayoutProps> = ({ board }: TaskLayoutProps) => {
-  const tasks: Task[] = useSelector((state: RootState) =>
-    state.tasks.filter((task) => task.status.boardTitle === board)
-  );
-  const columns: BoardColumn[] = useSelector((state: RootState) =>
-    state.columns.filter((column) => column.boardTitle === board)
-  );
+  const tasks: Task[] = createSelector(
+    (state: Task[]) => state,
+    (tasks) => tasks.filter((task) => task.status.boardTitle === board)
+  )(useSelector((state: RootState) => state.tasks));
+ 
+  const columns: BoardColumn[] = createSelector(
+    (state: BoardColumn[]) => state,
+    (columns) => columns.filter((column) => column.boardTitle === board)
+  )(useSelector((state: RootState) => state.columns));
 
   const colors = [
     "bg-cyan-400",
@@ -45,7 +49,7 @@ const TaskLayout: React.FC<TaskLayoutProps> = ({ board }: TaskLayoutProps) => {
             ))}
         </Column>
       ))}
-      <Column newColumn boardTitle={board}/>
+      <Column newColumn boardTitle={board} />
     </div>
   );
 };
