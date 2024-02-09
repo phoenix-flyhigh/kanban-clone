@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Task } from "../Interfaces";
-import ExpandedTask from "./ExpandedTask";
+import ExpandedTask from "./Modals/ExpandedTask";
 import { useDispatch } from "react-redux";
 import { editTask } from "../redux/TaskSlice";
 

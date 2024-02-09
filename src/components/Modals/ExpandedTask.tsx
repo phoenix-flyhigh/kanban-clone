@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { BoardColumn, DropdownType, Task } from "../Interfaces";
-import { RootState } from "../redux/store";
+import { BoardColumn, DropdownType, Task } from "../../Interfaces";
+import { RootState } from "../../redux/store";
 import { useState } from "react";
 import { createSelector } from "@reduxjs/toolkit";
-import Dropdown from "./Dropdown";
-import { deleteTask } from "../redux/TaskSlice";
+import Dropdown from "../Dropdown";
+import { deleteTask } from "../../redux/TaskSlice";
 import DeleteModal from "./DeleteModal";
 
 interface ExpandedTaskProps {

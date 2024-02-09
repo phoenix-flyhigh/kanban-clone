@@ -1,14 +1,14 @@
 import { useState } from "react";
 import KanbanIcon from "./KanbanIcon";
 import MenuBar from "./MenuBar";
-import AddTask from "./AddTask";
+import AddTask from "./Modals/AddTask";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { BoardColumn, DropdownType } from "../Interfaces";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "./Modals/DeleteModal";
 import { createSelector } from "@reduxjs/toolkit";
 import Dropdown from "./Dropdown";
-import EditBoard from "./EditBoard";
+import EditBoard from "./Modals/EditBoard";
 
 interface NavBarProps {
   currentBoard: string;

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { BoardColumn, Task } from "../Interfaces";
+import { BoardColumn, Task } from "../../Interfaces";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../redux/TaskSlice";
-import { RootState } from "../redux/store";
+import { addTask } from "../../redux/TaskSlice";
+import { RootState } from "../../redux/store";
 import { createSelector } from "@reduxjs/toolkit";
 
 interface ExpandedTaskProps {

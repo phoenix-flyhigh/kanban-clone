@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react";
-import AddColumn from "./AddColumn";
+import AddColumn from "./Modals/AddColumn";
 import { useDispatch } from "react-redux";
 import { editTaskStatus } from "../redux/TaskSlice";
 import { Task } from "../Interfaces";

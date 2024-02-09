@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addColumn } from "../redux/ColumnSlice";
-import { RootState } from "../redux/store";
-import { BoardColumn } from "../Interfaces";
+import { addColumn } from "../../redux/ColumnSlice";
+import { RootState } from "../../redux/store";
+import { BoardColumn } from "../../Interfaces";
 import { createSelector } from "reselect";
 
 interface AddColumnProps {

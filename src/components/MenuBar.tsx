@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import KanbanIcon from "./KanbanIcon";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import AddBoard from "./AddBoard";
+import AddBoard from "./Modals/AddBoard";
 
 interface MenuBarProps {
   hideMenu?: () => void;

@@ -1,10 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BoardColumn } from "../Interfaces";
-import { RootState } from "../redux/store";
-import { addColumn, deleteColumn } from "../redux/ColumnSlice";
-import { deleteTasksPerColumn } from "../redux/TaskSlice";
+import { BoardColumn } from "../../Interfaces";
+import { RootState } from "../../redux/store";
+import { addColumn, deleteColumn } from "../../redux/ColumnSlice";
+import { deleteTasksPerColumn } from "../../redux/TaskSlice";
 
 interface EditBoardProps {
   board: string;
