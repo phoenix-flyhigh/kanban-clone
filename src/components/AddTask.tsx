@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BoardColumn } from "../Interfaces";
+import { BoardColumn, Task } from "../Interfaces";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../redux/TaskSlice";
 import { RootState } from "../redux/store";
@@ -19,6 +19,12 @@ const AddTask: React.FC<ExpandedTaskProps> = ({
     (columns) => columns.filter((column) => column.boardTitle === board)
   )(useSelector((state: RootState) => state.columns));
 
+  const tasks: Task[] = createSelector(
+    (state: Task[]) => state,
+    (tasks) => tasks.filter((task) => task.status.boardTitle === board)
+  )(useSelector((state: RootState) => state.tasks));
+
+  const [error, setError] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [status, setStatus] = useState<BoardColumn>(columns[0]);
@@ -27,20 +33,24 @@ const AddTask: React.FC<ExpandedTaskProps> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(
-      addTask({
-        title,
-        description,
-        status,
-        subTasks: subTasks
-          .filter((task) => task !== "")
-          .map((subtask) => ({
-            title: subtask,
-            completed: false,
-          })),
-      })
-    );
-    onClose();
+    if (tasks.find((task) => task.title === title)) {
+      setError(true);
+    } else {
+      dispatch(
+        addTask({
+          title,
+          description,
+          status,
+          subTasks: subTasks
+            .filter((task) => task !== "")
+            .map((subtask) => ({
+              title: subtask,
+              completed: false,
+            })),
+        })
+      );
+      onClose();
+    }
   };
 
   return (
@@ -67,6 +77,11 @@ const AddTask: React.FC<ExpandedTaskProps> = ({
           placeholder="e.g Take coffee break"
           className="dark:bg-dark-base py-1 px-4 rounded-lg border-2 border-gray-400 hover:border-dark-primary"
         />
+        {error && (
+          <p className="text-sm font-semibold text-red-500">
+            Task already exists
+          </p>
+        )}
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="description" className="text-sm font-semibold">
