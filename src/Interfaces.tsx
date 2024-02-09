@@ -20,3 +20,8 @@ export enum TaskStatus {
   DOING = "DOING",
   DONE = "DONE",
 }
+
+export enum DropdownType {
+  BOARD = "board",
+  TASK = "task",
+}

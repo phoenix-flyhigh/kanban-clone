@@ -14,10 +14,20 @@ const TaskSlice = createSlice({
     addTask(state, action: { payload: Task }) {
       return [...state, action.payload];
     },
+    deleteTask(state, action: { payload: Task }) {
+      const taskToDelete = action.payload;
+      const isTaskToDelete = (task: Task) =>
+        task.title === taskToDelete.title &&
+        task.status.title === taskToDelete.status.title &&
+        task.status.boardTitle === taskToDelete.status.boardTitle;
+      
+        return state.filter((task) => !isTaskToDelete(task));
+    },
     editTask(state, action: { payload: Task }) {
       const updatedTask = action.payload;
       return state.map((task) =>
-        task.title === updatedTask.title && task.status.boardTitle === updatedTask.status.boardTitle
+        task.title === updatedTask.title &&
+        task.status.boardTitle === updatedTask.status.boardTitle
           ? updatedTask
           : task
       );
@@ -38,7 +48,7 @@ const TaskSlice = createSlice({
   },
 });
 
-export const { fetchTasks, addTask, editTask, editTaskStatus } =
+export const { fetchTasks, addTask, deleteTask, editTask, editTaskStatus } =
   TaskSlice.actions;
 const TaskReducer = TaskSlice.reducer;
 export default TaskReducer;
