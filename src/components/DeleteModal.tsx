@@ -12,7 +12,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   onClose,
 }: DeleteModalProps) => {
   return (
-    <div className="flex flex-col p-4 gap-4 dark:bg-zinc-900 bg-slate-200 rounded-2xl w-96">
+    <div className="flex flex-col p-4 gap-4 dark:bg-zinc-900 bg-slate-100 rounded-2xl w-96">
       <p className="text-xl font-bold text-red-500 ">Delete {type} ?</p>
       <p className="font-sm dark:text-dark-text-secondary text-light-text-secondary">
         Are you sure you want to delete this {type}? Once deleted, it can be

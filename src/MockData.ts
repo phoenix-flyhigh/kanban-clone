@@ -12,7 +12,7 @@ export const MockTaskList: Task[] = [
       },
     ],
     status: {
-      title: TaskStatus.TODO,
+      title: TaskStatus.DOING,
       boardTitle: "Platform Launch",
     },
   },
@@ -46,7 +46,7 @@ export const MockTaskList: Task[] = [
       },
     ],
     status: {
-      title: TaskStatus.TODO,
+      title: TaskStatus.DOING,
       boardTitle: "Platform Launch",
     },
   },
@@ -95,7 +95,7 @@ export const MockTaskList: Task[] = [
       },
     ],
     status: {
-      title: TaskStatus.TODO,
+      title: TaskStatus.DONE,
       boardTitle: "Platform Launch",
     },
   },
@@ -110,7 +110,7 @@ export const MockTaskList: Task[] = [
       },
     ],
     status: {
-      title: TaskStatus.TODO,
+      title: TaskStatus.DONE,
       boardTitle: "Platform Launch",
     },
   },
