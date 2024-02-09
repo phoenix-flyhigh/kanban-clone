@@ -57,12 +57,14 @@ const ExpandedTask: React.FC<ExpandedTaskProps> = ({
           <h1 className="text-lg font-semibold">{title}</h1>
           <div className="flex gap-2 md:gap-4 items-center">
             {showDropDown && (
-              <Dropdown
-                type={DropdownType.TASK}
-                onDelete={() => {
-                  setShowDeleteModal(true);
-                }}
-              />
+              <div className="absolute min-w-28 top-16 right-12 ">
+                <Dropdown
+                  type={DropdownType.TASK}
+                  onDelete={() => {
+                    setShowDeleteModal(true);
+                  }}
+                />
+              </div>
             )}
             <button
               onClick={() => setShowDropDown((prev) => !prev)}

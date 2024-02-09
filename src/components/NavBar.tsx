@@ -4,9 +4,10 @@ import MenuBar from "./MenuBar";
 import AddTask from "./AddTask";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { BoardColumn } from "../Interfaces";
+import { BoardColumn, DropdownType } from "../Interfaces";
 import DeleteModal from "./DeleteModal";
 import { createSelector } from "@reduxjs/toolkit";
+import Dropdown from "./Dropdown";
 
 interface NavBarProps {
   currentBoard: string;
@@ -24,6 +25,7 @@ const NavBar: React.FC<NavBarProps> = ({
   const [showMenu, setShowMenu] = useState(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const columns: BoardColumn[] = createSelector(
     (state: BoardColumn[]) => state,
     (columns) => columns.filter((column) => column.boardTitle === currentBoard)
@@ -50,6 +52,7 @@ const NavBar: React.FC<NavBarProps> = ({
           />
         </dialog>
       )}
+
       <div
         className={`absolute inset-0 h-screen max-w-[240px] z-10 ${showMenu ? "flex" : "hidden"}`}
       >
@@ -79,11 +82,22 @@ const NavBar: React.FC<NavBarProps> = ({
             +<span className="hidden md:inline">Add new task</span>
           </button>
           <button
-            onClick={() => setShowDeleteModal(true)}
+            onClick={() => setShowDropdown(true)}
             className="font-extrabold text-2xl dark:text-white text-light-primary"
           >
             &#8942;
           </button>
+          {showDropdown && (
+            <div className="absolute min-w-28 top-16 right-2 ">
+              <Dropdown
+                type={DropdownType.BOARD}
+                onDelete={() => {
+                  setShowDeleteModal(true);
+                  setShowDropdown(false);
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>

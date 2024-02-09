@@ -13,7 +13,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   onDelete,
 }: DropdownProps) => {
   return (
-    <div className="absolute min-w-28 top-16 right-12 flex flex-col gap-2 rounded-lg py-3 px-4 dark:bg-zinc-900 bg-slate-200">
+    <div className="flex flex-col gap-2 rounded-lg py-3 px-4 dark:bg-zinc-900 bg-slate-200">
       {type === DropdownType.BOARD && (
         <button
           onClick={onEdit}

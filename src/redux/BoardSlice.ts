@@ -17,10 +17,13 @@ const BoardSlice = createSlice({
       };
     },
     deleteBoard(state, action: { payload: string }) {
+      const isLastBoard = state.all.length === 1;
+      const isFirstBoard =
+        state.all.findIndex((board) => board === action.payload) === 0;
       return {
         ...state,
         all: state.all.filter((board) => board !== action.payload),
-        current: state.all[0] ?? "",
+        current: isLastBoard ? "" : isFirstBoard ? state.all[1] : state.all[0],
       };
     },
     updateCurrentBoard(state, action: { payload: string }) {
