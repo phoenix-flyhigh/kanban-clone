@@ -14,9 +14,20 @@ const ColumnSlice = createSlice({
     addColumn(state, action: { payload: BoardColumn }) {
       return [...state, action.payload];
     },
+    deleteColumn(state, action: { payload: BoardColumn }) {
+      const isColumnToDelete = (column: BoardColumn) =>
+        column.boardTitle === action.payload.boardTitle &&
+        column.title === action.payload.title;
+
+      return state.filter((column) => !isColumnToDelete(column));
+    },
+    deleteAllColumnsPerBoard(state, action: { payload: string }) {
+      return state.filter((column) => column.boardTitle !== action.payload);
+    },
   },
 });
 
-export const { addColumn } = ColumnSlice.actions;
+export const { addColumn, deleteColumn, deleteAllColumnsPerBoard } =
+  ColumnSlice.actions;
 const ColumnReducer = ColumnSlice.reducer;
 export default ColumnReducer;

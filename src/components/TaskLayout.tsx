@@ -14,7 +14,7 @@ const TaskLayout: React.FC<TaskLayoutProps> = ({ board }: TaskLayoutProps) => {
     (state: Task[]) => state,
     (tasks) => tasks.filter((task) => task.status.boardTitle === board)
   )(useSelector((state: RootState) => state.tasks));
- 
+
   const columns: BoardColumn[] = createSelector(
     (state: BoardColumn[]) => state,
     (columns) => columns.filter((column) => column.boardTitle === board)
@@ -49,7 +49,7 @@ const TaskLayout: React.FC<TaskLayoutProps> = ({ board }: TaskLayoutProps) => {
             ))}
         </Column>
       ))}
-      <Column newColumn boardTitle={board} />
+      {board !== "" && <Column newColumn boardTitle={board} />}
     </div>
   );
 };

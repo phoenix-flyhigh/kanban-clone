@@ -20,8 +20,23 @@ const TaskSlice = createSlice({
         task.title === taskToDelete.title &&
         task.status.title === taskToDelete.status.title &&
         task.status.boardTitle === taskToDelete.status.boardTitle;
-      
-        return state.filter((task) => !isTaskToDelete(task));
+
+      return state.filter((task) => !isTaskToDelete(task));
+    },
+    deleteTasksPerColumn(state, action: { payload: BoardColumn }) {
+      const column = action.payload;
+      const isTaskToDelete = (task: Task) =>
+        task.status.title === column.title &&
+        task.status.boardTitle === column.boardTitle;
+
+      return state.filter((task) => !isTaskToDelete(task));
+    },
+    deleteTasksPerBoard(state, action: { payload: string }) {
+      const boardTitle = action.payload;
+      const isTaskToDelete = (task: Task) =>
+        task.status.boardTitle === boardTitle;
+
+      return state.filter((task) => !isTaskToDelete(task));
     },
     editTask(state, action: { payload: Task }) {
       const updatedTask = action.payload;
@@ -48,7 +63,14 @@ const TaskSlice = createSlice({
   },
 });
 
-export const { fetchTasks, addTask, deleteTask, editTask, editTaskStatus } =
-  TaskSlice.actions;
+export const {
+  fetchTasks,
+  addTask,
+  deleteTask,
+  deleteTasksPerBoard,
+  deleteTasksPerColumn,
+  editTask,
+  editTaskStatus,
+} = TaskSlice.actions;
 const TaskReducer = TaskSlice.reducer;
 export default TaskReducer;

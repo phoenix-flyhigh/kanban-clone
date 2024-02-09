@@ -4,6 +4,8 @@ import TaskLayout from "./components/TaskLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import { addBoard, deleteBoard, updateCurrentBoard } from "./redux/BoardSlice";
+import { deleteAllColumnsPerBoard } from "./redux/ColumnSlice";
+import { deleteTasksPerBoard } from "./redux/TaskSlice";
 
 function App() {
   const currentBoard: string = useSelector(
@@ -21,6 +23,8 @@ function App() {
 
   const handleDeleteBoard = (boardTitle: string) => {
     dispatch(deleteBoard(boardTitle));
+    dispatch(deleteAllColumnsPerBoard(boardTitle));
+    dispatch(deleteTasksPerBoard(boardTitle));
   };
 
   return (

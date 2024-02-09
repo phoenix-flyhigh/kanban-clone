@@ -8,6 +8,7 @@ import { BoardColumn, DropdownType } from "../Interfaces";
 import DeleteModal from "./DeleteModal";
 import { createSelector } from "@reduxjs/toolkit";
 import Dropdown from "./Dropdown";
+import EditBoard from "./EditBoard";
 
 interface NavBarProps {
   currentBoard: string;
@@ -25,6 +26,7 @@ const NavBar: React.FC<NavBarProps> = ({
   const [showMenu, setShowMenu] = useState(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const columns: BoardColumn[] = createSelector(
     (state: BoardColumn[]) => state,
@@ -49,6 +51,14 @@ const NavBar: React.FC<NavBarProps> = ({
             onClose={() => setShowDeleteModal(false)}
             onSubmit={() => deleteBoard(currentBoard)}
             type="board"
+          />
+        </dialog>
+      )}
+      {showEditModal && (
+        <dialog open className="absolute inset-0 rounded-2xl z-10">
+          <EditBoard
+            board={currentBoard}
+            onClose={() => setShowEditModal(false)}
           />
         </dialog>
       )}
@@ -83,7 +93,8 @@ const NavBar: React.FC<NavBarProps> = ({
           </button>
           <button
             onClick={() => setShowDropdown(true)}
-            className="font-extrabold text-2xl dark:text-white text-light-primary"
+            className="font-extrabold text-2xl dark:text-white text-light-primary disabled:hidden"
+            disabled={currentBoard === ""}
           >
             &#8942;
           </button>
@@ -91,6 +102,10 @@ const NavBar: React.FC<NavBarProps> = ({
             <div className="absolute min-w-28 top-16 right-2 ">
               <Dropdown
                 type={DropdownType.BOARD}
+                onEdit={() => {
+                  setShowEditModal(true);
+                  setShowDropdown(false);
+                }}
                 onDelete={() => {
                   setShowDeleteModal(true);
                   setShowDropdown(false);
